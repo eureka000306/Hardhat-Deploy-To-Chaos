@@ -12,8 +12,8 @@ module.exports = {
  
   networks: {
 
-    skale: {
-            url: process.env.SKALE_ENDPOINT,
+    calypso: {
+            url: process.env.CALYPSO_ENDPOINT,
            
             accounts: [process.env.PRIVATE_KEY]
           },
@@ -21,11 +21,11 @@ module.exports = {
   },
   etherscan: { 
     apiKey: {
-      skale: process.env.ETHERSCAN_API_KEY,
+      calypso: process.env.ETHERSCAN_API_KEY,
     },
     customChains: [
       {
-        network: "skale",
+        network: "calypso",
         chainId: parseInt(process.env.CHAIN_ID),
         urls: {
           apiURL: process.env.API_URL,

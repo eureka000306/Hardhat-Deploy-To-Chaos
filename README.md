@@ -9,7 +9,7 @@ npx hardhat help
 npx hardhat test
 GAS_REPORT=true npx hardhat test
 npx hardhat node
-npx hardhat run scripts/deploy.js
+npx hardhat run scripts/deployOnCalypso.js
 ```
 <------------------------------------------------------>
 
@@ -26,7 +26,7 @@ Warpspeed Setup Guide Video commands
 
 npx hardhat run ./scripts/deployOnSKALE.js —network skale
 
-npx hardhat verify <<contract address>>  —network skale 
+npx hardhat verify --network calypso 0x4071C323999D94d1CFDd3DF590e501B48Aec7Ed1 'ipfs://QmWr4YtQZT9yXHgLhmqosYZLqSDxkKnzV1WAW5U1SMGnft'
 
 <------------------------------------------------------>
 
