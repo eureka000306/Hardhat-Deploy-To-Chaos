@@ -26,6 +26,10 @@ Warpspeed Setup Guide Video commands
 
 npx hardhat run ./scripts/deployOnSKALE.js —network skale
 
+or 
+
+npx hardhat run ./scripts/deployOnCalypso.js —network calypso
+
 npx hardhat verify --network calypso 0x4071C323999D94d1CFDd3DF590e501B48Aec7Ed1 'ipfs://QmWr4YtQZT9yXHgLhmqosYZLqSDxkKnzV1WAW5U1SMGnft'
 
 <------------------------------------------------------>
