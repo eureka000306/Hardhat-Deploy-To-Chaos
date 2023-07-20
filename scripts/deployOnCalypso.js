@@ -4,7 +4,7 @@ async function main() {
 
 
   const KNFTCollectible = await hre.ethers.getContractFactory("KNFTCollectible");
-  const contract = await KNFTCollectible.deploy('ipfs://QmWr4YtQZT9yXHgLhmqosYZLqSDxkKnzV1WAW5U1SMGnft');
+  const contract = await KNFTCollectible.deploy('ipfs://QmWr4YtQZT9yXHgLhmqosYZLqSDxkKnzV1WAW5U1SMGnft/');
 
   await contract.deployed();
 
