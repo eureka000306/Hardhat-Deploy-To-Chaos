@@ -18,14 +18,14 @@ contract KNFTCollectible is ERC721Enumerable, Ownable {
     mapping (uint256 => uint256) private tokenIds;
     mapping (uint256 => TimeStamp) public timestamps;
     
-    uint public constant BUYING_PRICE = 0.5 ether;
+    uint public constant BUYING_PRICE = 0.00000005 ether;
     uint public constant TOTAL_SUPPLY = 6000;
     uint public constant QUARTER = TOTAL_SUPPLY / 4;
     uint public constant MERGE_INITIAL_VALUE = 6000;
     uint256 private constant DEFAULT_DURATION = 25920000;
     
     string public baseTokenURI;
-    uint public SELLING_PRICE = 0.4 ether;
+    uint public SELLING_PRICE = 0.00000004 ether;
     
     constructor(string memory baseURI) ERC721("KNFT Collectible", "KNFTC") {
         setBaseURI(baseURI);
@@ -54,9 +54,9 @@ contract KNFTCollectible is ERC721Enumerable, Ownable {
 
     function buyNFT(uint256 _tokenType) public payable {
         require(_tokenType >= 0 && _tokenType < 4, "Invalid Token Type");
-        require(tokenIds[_tokenType] <= QUARTER, "Not enough NFTs left!");
+        require(tokenIds[_tokenType] <= QUARTER, "There is not enough NFTs left!");
         require(isOnProgress(this.tokensOfOwner(msg.sender), _tokenType), "User hasn't purchased all 6 nfts of the type");
-        require(msg.value >= BUYING_PRICE, "Not enough ether to purchase NFTs.");
+        require(msg.value >= BUYING_PRICE, "Balance is not enough to purchase the NFT.");
 
         uint256 _tokenId = getCurrentIdOfType(_tokenType);
         _mintSingleNFT(_tokenId);
@@ -147,7 +147,7 @@ contract KNFTCollectible is ERC721Enumerable, Ownable {
     }
 
     function swapToKT() external payable {
-        require(msg.value >= 10**15, "Not enough balance to swap");
+        require(msg.value >= 10**12, "Not enough balance to swap");
     }
     
     function withdraw() public payable onlyOwner {
