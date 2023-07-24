@@ -75,8 +75,10 @@ contract KNFTCollectible is ERC721Enumerable, Ownable {
     
     function isOnProgress(uint[] memory _tokens, uint256 _tokenType) private pure returns (bool) {
         uint[4] memory tokenTypes;
+        uint tokenType;
         for (uint i = 0; i < _tokens.length; i++) {
-            uint tokenType = _tokens[i] / QUARTER;
+            if(_tokens[i] >= MERGE_INITIAL_VALUE) continue;
+            tokenType = _tokens[i] / QUARTER;
             tokenTypes[tokenType]++;
         }
         for (uint i = 0; i < 4; i++) {
@@ -87,7 +89,7 @@ contract KNFTCollectible is ERC721Enumerable, Ownable {
         return true;
     }
 
-    function merge(uint256 _tokenType) public {
+    function mergeNFTs(uint256 _tokenType) public {
         uint newMergeId = _mergeIds.current() + MERGE_INITIAL_VALUE;
         require(isMergeable(_tokenType), "User hasn't purchased all 6 nfts of the type");
 
@@ -95,9 +97,7 @@ contract KNFTCollectible is ERC721Enumerable, Ownable {
         _mintSingleNFT(newMergeId);
         // Burn 6 NFTs instead of newly merged kingdom NFT
         burnNFTs(_tokenType);
-
         setTimeStamp(newMergeId);
-
         _mergeIds.increment();
     }
 
@@ -118,8 +118,8 @@ contract KNFTCollectible is ERC721Enumerable, Ownable {
         uint count = 0;
         
         for(uint i = 0; i < tokens.length; i ++) {
-            if((tokens[i] >= (_tokenType*QUARTER)) && (tokens[i] < ((_tokenType+1)*QUARTER))) {
-                if(count > 6) return;
+            if(tokens[i] / QUARTER == _tokenType) {
+                if(count >= 6) return;
                 super._burn(tokens[i]);
                 count ++;
             }
@@ -146,9 +146,8 @@ contract KNFTCollectible is ERC721Enumerable, Ownable {
         return tokensId;
     }
 
-    function swapToKT() external payable returns (uint256) {
+    function swapToKT() external payable {
         require(msg.value >= 10**15, "Not enough balance to swap");
-        return msg.value / 10**15;
     }
     
     function withdraw() public payable onlyOwner {
